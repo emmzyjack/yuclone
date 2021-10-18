@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="main.css">
+   <!-- <link rel="stylesheet"href="fontawesome-pro-5.13.0-web/css/all.min.css"> -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    
+</head>
+<body onload="start()">
+    <div id="main">
+        <h2>Emmma</h2>
+        <div id="msg_area">
+            <div id="robot">
+                <div id="bot"></div>
+                    <h3>Emmma</h3>
+                </div>
+                <hr>
+                <!-- <div class="left">hello I'm Emma, How can i help you?</div> -->
+                </div>
+            
+
+            <div id="input">
+                <input type="text" placeholder="type a message" id="text">
+                <button class="send" id="send">Send<i class="fas fa-paper-plane"></i></button>
+            
+        </div>
+    </div>
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-85417367-1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js" integrity="sha512-Idr7xVNnMWCsgBQscTSCivBNWWH30oo/tzYORviOCrLKmBaRxRflm2miNhTFJNVmXvCtzgms5nlJF4az2hiGnA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+<script type="text/javascript">
+    function start() {
+        let res_msg = document.createElement("div");
+        res_msg.innerHTML = "hello I'm Emmma ACO, How can i help you?" ;
+        res_msg.setAttribute("class","left");
+
+
+        document.getElementById('msg_area').appendChild(res_msg);
+    }
+    document.getElementById('send').addEventListener("click", async (e) =>
+    {
+        e.preventDefault();
+
+        var req = document.getElementById('text').value ;
+        if (req == undefined || req == "") {
+
+
+        }
+        else{
+            let res = "";
+            await axios.get(`https://api.monkedev.com/fun/chat?msg=${req}`).then(data => {
+                res = JSON.stringify(data.data.response)
+            })
+            let msg_req = document.createElement('div');
+            let msg_res = document.createElement('div');
+
+            let con1 = document.createElement('div');
+            let con2 = document.createElement('div');
+
+
+            con1.setAttribute("class","msgcon1");
+            con2.setAttribute("class","msgcon2");
+
+            msg_req.innerHTML = req ;
+            msg_res.innerHTML = res ;
+
+            msg_req.setAttribute("class","right");
+            msg_res.setAttribute("class","left");
+
+            let message = document.getElementById('msg_area');
+
+            message.appendChild(con1);
+            message.appendChild(con2);
+
+            con1.appendChild(msg_req);
+            con2.appendChild(msg_res);
+
+            document.getElementById('text').value= "";
+
+            function scroll() {
+                var scrollMsg = document.getElementById('msg_area');
+                scrollMsg.scrollTop - scrollMsg
+                    scrollHeight ;
+            }
+            scroll();
+        }
+
+
+    });
+   
+</script>
+</html>
